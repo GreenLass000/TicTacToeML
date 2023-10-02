@@ -1,0 +1,66 @@
+body {
+    user-select: none;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+/* img {
+    pointer-events: none;
+} */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    /* background-color: #2196F3; */
+    padding: 10px;
+}
+
+.grid-container>div {
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    /* border: 1px solid black; */
+    text-align: center;
+    font-size: 30px;
+}
+
+.div-point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+#points {
+    display: grid;
+    grid-template-columns: auto auto;
+    /* background-color: #219; */
+}
+
+#points>div {
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    /* border: 1px solid black; */
+    text-align: center;
+    font-size: 30px;
+}
+
+#game {
+    display: grid;
+    grid-template-columns: repeat(3, 75px);
+    grid-template-rows: repeat(3, 75px);
+    justify-content: center;
+    gap: 10px;
+    /* background-color: #2196F3; */
+    /* padding: 10px; */
+}
+
+#game>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    border-radius: 8px;
+    text-align: center;
+}
