@@ -73,16 +73,12 @@ function checkPositions(cells) {
 
 	if (!isPlayer1turn) {
 		getPositions(circleMarked, circleNumbers);
-		console.log(circleNumbers);
-
+		// console.log(circleNumbers);
 		console.log(validatePositions(circleNumbers, WIN_CONDITIONS) ? "Circle Wins" : "Continue");
 	} else {
 		getPositions(crossMarked, crossNumbers);
-		console.log(crossNumbers);
-
-		if (WIN_CONDITIONS.includes(crossNumbers)) {
-			console.log("Cross wins");
-		}
+		// console.log(crossNumbers);
+		console.log(validatePositions(crossNumbers, WIN_CONDITIONS) ? "Cross Wins" : "Continue");
 	}
 
 	// console.log(crossMarked);
