@@ -49,6 +49,8 @@ body {
     grid-template-rows: repeat(3, 75px);
     justify-content: center;
     gap: 10px;
+    /* background-size: cover;
+    background-repeat: no-repeat; */
     /* background-color: #2196F3; */
     /* padding: 10px; */
 }
