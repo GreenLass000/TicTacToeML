@@ -1,13 +1,15 @@
 let cells = document.querySelectorAll(".game-cell");
 let isPlayer1turn = Math.round(Math.random());
 
+let tempElement;
+
 function start() {
     restartGrid();
 
     cells.forEach(function (cell) {
-        let tempElement = document.createElement("div");
+        tempElement = document.createElement("div");
 
-        // console.log(cell.id);
+        // console.log("Temp Element:", tempElement);
 
         cell.addEventListener("mouseenter", function () {
             if (cell.style.backgroundImage === "") {
@@ -23,17 +25,20 @@ function start() {
                 tempElement.style.opacity = "0.5";
 
                 cell.appendChild(tempElement);
-                console.log(cell);
+                // console.log(cell);
             }
         });
         cell.addEventListener("mouseleave", function () {
             if (cell.style.backgroundImage === "") {
-                cell.removeChild(tempElement);
+                for (let childNode of cell.childNodes) {
+                    cell.removeChild(childNode);
+                }
             }
         });
         cell.addEventListener("click", function () {
             if (cell.style.backgroundImage === "") {
                 cell.removeChild(tempElement);
+                console.log(tempElement);
                 cell.style.backgroundImage = "url(./resources/" + (isPlayer1turn ? "circle" : "cross") + ".png)";
                 cell.className += isPlayer1turn ? " circle" : " cross";
 
@@ -98,63 +103,51 @@ function validatePositions(arr) {
     return false;
 }
 
+function resetEvents(className, hex) {
+    cells.forEach(function (cell) {
+        cell.classList.remove("circle", "cross");
+        cell.style.backgroundImage = "";
+
+        cell.removeEventListener('mouseenter', event_handler);
+        cell.removeEventListener('mouseleave', event_handler);
+        cell.removeEventListener('click', event_handler);
+    });
+
+    document.body.style.backgroundColor = hex;
+    setTimeout(function () {
+        document.body.style.backgroundColor = "#f0f0f0";
+
+        let text = document.getElementById(className);
+        // console.log(parseInt(circleText.textContent) + 1);
+        text.textContent = parseInt(text.textContent) + 1;
+    }, 2000);
+
+    function event_handler(event) {
+    }
+}
+
 function resetGame(winner) {
     if (winner === "circle") {
-        cells.forEach(function (cell) {
-            cell.classList.remove("circle", "cross");
-            cell.style.backgroundImage = "";
-
-            cell.removeEventListener('mouseenter', event_handler);
-            cell.removeEventListener('mouseleave', event_handler);
-            cell.removeEventListener('click', event_handler);
-        });
-
-        document.body.style.backgroundColor = "rgba(254, 63, 63, 0.4)";
-        setTimeout(function () {
-            document.body.style.backgroundColor = "#f0f0f0";
-
-            let circleText = document.getElementById("circleText");
-            console.log(parseInt(circleText.textContent) + 1);
-            circleText.textContent = parseInt(circleText.textContent) + 1;
-        }, 2000)
-
-        cells.forEach(function (cell) {
-            console.log(cell)
+        resetEvents("circleText", "rgba(254,63,63,0.4)");
+        cells.forEach(cell => {
+            // console.log(cell)
             cell.style.backgroundImage = "";
         });
 
     } else {
-        cells.forEach(function (cell) {
-            cell.classList.remove("circle", "cross");
-            cell.style.backgroundImage = "";
-
-            cell.removeEventListener('mouseenter', event_handler);
-            cell.removeEventListener('mouseleave', event_handler);
-            cell.removeEventListener('click', event_handler);
-        });
-
-        document.body.style.backgroundColor = "rgba(76, 208, 250, 0.4)";
-        setTimeout(function () {
-            document.body.style.backgroundColor = "#f0f0f0";
-
-            let circleText = document.getElementById("crossText");
-            console.log(parseInt(circleText.textContent) + 1);
-            circleText.textContent = parseInt(circleText.textContent) + 1;
-        }, 2000)
+        resetEvents("crossText", "rgba(81,169,240,0.4)");
     }
-
-    function event_handler(event) {
-    }
-
-    //restartGrid();
-    start();
+    setTimeout(() => {
+        start();
+    }, 10);
 }
 
 function restartGrid() {
     cells.forEach(function (cell) {
         let itemsBefore = cell.querySelectorAll(".grid-item-before");
-        itemsBefore.forEach(function (cellBefore) {
+        itemsBefore.forEach(cellBefore => {
             cellBefore.remove();
         })
     });
+    // document.querySelector("#game").innerHTML = "";
 }
