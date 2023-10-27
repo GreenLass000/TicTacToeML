@@ -71,6 +71,16 @@ function checkPositions() {
         }
     }
 
+    let fillCont = 0;
+    cells.forEach(cell => {
+        if (cell.style.backgroundImage) {
+            fillCont++;
+        }
+    });
+
+    if (fillCont === 9) {
+        resetGame();
+    }
     // console.log(crossMarked);
     // console.log(circleMarked);
 }
@@ -103,7 +113,7 @@ function validatePositions(arr) {
     return false;
 }
 
-function resetEvents(className, hex) {
+function resetEvents(className = "none", hex = "orange") {
     cells.forEach(function (cell) {
         cell.classList.remove("circle", "cross");
         cell.style.backgroundImage = "";
@@ -117,25 +127,29 @@ function resetEvents(className, hex) {
     setTimeout(function () {
         document.body.style.backgroundColor = "#f0f0f0";
 
-        let text = document.getElementById(className);
-        // console.log(parseInt(circleText.textContent) + 1);
-        text.textContent = parseInt(text.textContent) + 1;
+        if (className !== "none") {
+            let text = document.getElementById(className);
+            // console.log(parseInt(circleText.textContent) + 1);
+            text.textContent = parseInt(text.textContent) + 1;
+        }
     }, 2000);
 
     function event_handler(event) {
     }
 }
 
-function resetGame(winner) {
+function resetGame(winner = "none") {
     if (winner === "circle") {
         resetEvents("circleText", "rgba(254,63,63,0.4)");
-        cells.forEach(cell => {
-            // console.log(cell)
-            cell.style.backgroundImage = "";
-        });
+        // cells.forEach(cell => {
+        //     // console.log(cell)
+        //     cell.style.backgroundImage = "";
+        // });
 
-    } else {
+    } else if (winner === "cross") {
         resetEvents("crossText", "rgba(81,169,240,0.4)");
+    } else {
+        resetEvents();
     }
     setTimeout(() => {
         start();
